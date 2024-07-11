@@ -1,0 +1,32 @@
+# Config
+
+NAME := "stellar"
+ENV := "development"
+DATABASE_SCHEMA_DIR := "schema"
+
+# Database
+
+## Database - Private
+name:
+  @echo {{NAME}}-{{ENV}}
+url:
+  @turso db show $(just name) --url
+create:
+  turso db create $(just name)
+token:
+  @turso db tokens create $(just name)
+connection-string:
+  @echo "$(just url)?authToken=$(just token)"
+
+## Database - Public
+
+login:
+  turso auth login
+  atlas login
+migrate:
+  atlas schema apply -u "$(just url)?authToken=$(just token)" \
+  --to file://{{DATABASE_SCHEMA_DIR}} --exclude '_litestream_seq,_litestream_lock'
+lint:
+  atlas migrate lint --dev-url "sqlite://dev?mode=memory" -w
+diff:
+  atlas migrate diff --to file://{{DATABASE_SCHEMA_DIR}} --dev-url "sqlite://dev?mode=memory"
