@@ -1,6 +1,6 @@
 [package]
 publish = false
-name = "stellar_firmware"
+name = "stellar-firmware"
 version = "0.1.0"
 edition = "2021"
 
