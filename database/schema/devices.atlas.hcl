@@ -2,7 +2,7 @@ table "devices" {
   schema = schema.main
 
   column "id" {
-    type = uuid
+    type = varchar(32)
   }
   primary_key {
     columns = [
@@ -11,7 +11,7 @@ table "devices" {
   }
 
   column "user_id" {
-    type = uuid
+    type = varchar(32)
   }
   foreign_key "user_fk" {
     columns     = [column.user_id]

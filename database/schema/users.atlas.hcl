@@ -2,7 +2,7 @@ table "users" {
   schema = schema.main
 
   column "id" {
-    type = uuid
+    type = varchar(32)
   }
   primary_key {
     columns = [
